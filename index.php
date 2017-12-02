@@ -11,16 +11,29 @@ include 'assets/class/nemandi.php';
 
 $nemandi = new nemandi();
 
-$nemandi->nyrNemandi($kt);
+if (!empty($_POST['deleteStudent'])) {
+    $kt = strtolower(trim(strip_tags($_POST['deleteStudentKt'])));
+    if ($kt == "") {
+        $error = "Provide Kennitala!";
+    }
+    else {
+        try {
+            $nemandi->deleteStudent($kt);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}
 
 ?>
 
 <html>
 <body>
-<h1>nýr nemandi</h1>
-<form action="">
-    <input type="text">
-    <input type="submit">
+<h1>Delete Student</h1>
+<form method="post" action="" name="deleteStudentForm">
+    <label>Delete Student</label>
+    <input type="number" name="deleteStudentKt" autocomplete="off" placeholder="Kennitala"/>
+    <input type="submit" class="button" name="deleteStudent" value="Signup">
 </form>
 </body>
 
