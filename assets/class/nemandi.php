@@ -29,7 +29,43 @@ class nemandi
         return $stmt;
     }
 
-    public function nyrNemandi($kt, $name, $track, $semester){
-        
+    /**
+     * @param $kt
+     * @param $name
+     * @param $track
+     * @param $semester
+     * @return PDOStatement
+     */
+    public function newStudent($kt, $name, $track, $semester){
+        try
+        {
+            $stmt = $this->conn->prepare("CALL newStudent(:id, :name, :track, :semester);");
+            $stmt->bindParam(":kt", $kt);
+            $stmt->bindParam(":name", $name);
+            $stmt->bindParam(":track", $track);
+            $stmt->bindParam(":semester", $semester);
+            $stmt->execute();
+            return $stmt;
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param $kt
+     * @return PDOStatement
+     */
+    public function deleteStudent($kt){
+        try{
+            $stmt = $this->conn->prepare("CALL deleteStudent(:kt);");
+            $stmt->bindParam(":kt", $kt);
+            $stmt->execute();
+            return $stmt;
+        }
+        catch (PDOException $e){
+            echo $e->getMessage();
+        }
     }
 }
