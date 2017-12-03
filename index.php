@@ -22,9 +22,9 @@ if (!empty($_POST['addStudent'])) {
         $error = "Provide Kennitala!";
     }elseif ($name == ""){
         $error = "Provide Name!";
-    }elseif ($track){
+    }elseif ($track == ""){
         $error = "Provide Braut!";
-    }elseif ($semester){
+    }elseif ($semester == ""){
         $error = "Provide Önn!";
     }
     else {
@@ -36,6 +36,27 @@ if (!empty($_POST['addStudent'])) {
     }
 }
 
+########################  View STUDENT ########################
+if (!empty($_POST['ViewStudent'])) {
+    $kt = strtolower(trim(strip_tags($_POST['ViewStudentKt'])));
+    if ($kt == "") {
+        $error = "Provide Kennitala!";
+    }
+    else {
+        try {
+            if($studentDetails=$nemandi->viewStudent($kt)){
+                echo "Kennitala:" . $studentDetails->studentID;
+                echo "\r\nName:" . $studentDetails->studentName;
+                echo "\r\nTrack:" . $studentDetails->trackID;
+                echo "\r\nSemester:" . $studentDetails->semester_ID;
+            }else{
+                echo "No student with this kennitala";
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}
 
 ########################  DELETE STUDENT ########################
 if (!empty($_POST['deleteStudent'])) {
@@ -63,7 +84,7 @@ if ($error != ""){
 
 <h1>Add New Student</h1>
 <form method="post" action="" name="addStudentForm">
-    <label>Delete Student</label>
+    <label>Add New Student</label>
     <input type="number" name="addStudentKt" autocomplete="off" placeholder="Kennitala"/>
     <input type="text" name="addStudentName" autocomplete="off" placeholder="Fullt Nafn"/>
     <input type="number" name="addStudentTrack" autocomplete="off" placeholder="Númer á braut? (1-9)"/>
@@ -71,6 +92,12 @@ if ($error != ""){
     <input type="submit" class="button" name="addStudent" value="Add New Student">
 </form>
 
+<h1>View Student</h1>
+<form method="post" action="" name="ViewStudentForm">
+    <label>View Student</label>
+    <input type="number" name="ViewStudentKt" autocomplete="off" placeholder="Kennitala"/>
+    <input type="submit" class="button" name="ViewStudent" value="View Student">
+</form>
 
 <h1>Delete Student</h1>
 <form method="post" action="" name="deleteStudentForm">
