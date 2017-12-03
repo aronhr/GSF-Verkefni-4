@@ -39,7 +39,7 @@ class nemandi
     public function newStudent($kt, $name, $track, $semester){
         try
         {
-            $stmt = $this->conn->prepare("CALL newStudent(:id, :name, :track, :semester);");
+            $stmt = $this->conn->prepare("CALL newStudent(:kt, :name, :track, :semester);");
             $stmt->bindParam(":kt", $kt);
             $stmt->bindParam(":name", $name);
             $stmt->bindParam(":track", $track);
@@ -49,6 +49,23 @@ class nemandi
         }
         catch(PDOException $e)
         {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param $kt
+     * @return PDOStatement
+     */
+    public function viewStudent($kt){
+        try{
+            $stmt = $this->conn->prepare("CALL selectStudent(:kt);");
+            $stmt->bindParam(":kt", $kt,PDO::PARAM_INT);
+            $stmt->execute();
+            $data = $stmt->fetch(PDO::FETCH_OBJ); //User data
+            return $data;
+        }
+        catch (PDOException $e){
             echo $e->getMessage();
         }
     }
