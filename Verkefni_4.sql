@@ -30,6 +30,23 @@ DELIMITER ;
 CALL selectStudent(1304982049);
 
 
+// Update student
+
+
+use Verkefni_4;
+
+DELIMITER $$
+
+CREATE PROCEDURE `changeStudent`(IN `s_studentID` INT(11), IN `s_studentName` VARCHAR(255), IN `s_trackID` INT, IN `s_semester_ID` INT)
+  BEGIN
+    UPDATE Verkefni_4.students SET studentName = s_studentName, trackID = s_trackID, semester_ID = s_semester_ID WHERE students.studentID = s_studentID;
+  END $$
+
+DELIMITER ;
+
+CALL changeStudent(1304982049, 'Adam', 7, 8);
+
+
 # Delete Student
 
 use Verkefni_4;
