@@ -30,7 +30,7 @@ DELIMITER ;
 CALL selectStudent(1304982049);
 
 
-// Update student
+# Update student
 
 
 use Verkefni_4;
@@ -61,3 +61,20 @@ CREATE PROCEDURE `deleteStudent`(IN `s_studentID` INT(11))
 DELIMITER ;
 
 CALL deleteStudent(1304982049);
+
+
+####################################### SCHOOL #######################################
+
+
+# New School
+
+use Verkefni_4;
+
+DELIMITER $$
+
+CREATE PROCEDURE `newSchool`(IN `s_schoolName` VARCHAR(255))
+  BEGIN
+    INSERT INTO Verkefni_4.schools (schoolName) VALUES (s_schoolName);
+  END $$
+
+CALL newSchool('Menntaskólinn í Reykjavík');

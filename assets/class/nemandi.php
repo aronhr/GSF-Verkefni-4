@@ -70,6 +70,13 @@ class nemandi
         }
     }
 
+    /**
+     * @param $kt
+     * @param $name
+     * @param $track
+     * @param $semester
+     * @return PDOStatement
+     */
     public function changeStudent($kt,$name,$track,$semester){
         try{
             $stmt = $this->conn->prepare("CALL changeStudent(:kt, :name, :track, :semester);");

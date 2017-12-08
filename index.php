@@ -10,6 +10,7 @@
 <html>
 
 <body>
-<a href="/student">Student</a>
+    <a href="/student">Student</a>
+    <a href="/school">School</a>
 </body>
 </html>
