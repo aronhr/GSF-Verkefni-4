@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: Aron
- * Date: 02-Dec-17
- * Time: 9:56 PM
+ * Date: 08-Dec-17
+ * Time: 3:50 PM
  */
 
-class nemandi
+class skoli
 {
-
     private $conn;
+
     /**
      * userClass constructor.
      */
@@ -19,6 +19,7 @@ class nemandi
         $db = $database->dbConnection();
         $this->conn = $db;
     }
+
     /**
      * @param $sql
      * @return PDOStatement
@@ -30,20 +31,14 @@ class nemandi
     }
 
     /**
-     * @param $kt
      * @param $name
-     * @param $track
-     * @param $semester
      * @return PDOStatement
      */
-    public function newStudent($kt, $name, $track, $semester){
+    public function newSchool($name){
         try
         {
-            $stmt = $this->conn->prepare("CALL newStudent(:kt, :name, :track, :semester);");
-            $stmt->bindParam(":kt", $kt);
+            $stmt = $this->conn->prepare("CALL newSchool(:name);");
             $stmt->bindParam(":name", $name);
-            $stmt->bindParam(":track", $track);
-            $stmt->bindParam(":semester", $semester);
             $stmt->execute();
             return $stmt;
         }
@@ -54,13 +49,13 @@ class nemandi
     }
 
     /**
-     * @param $kt
-     * @return PDOStatement
+     * @param $name
+     * @return mixed
      */
-    public function viewStudent($kt){
+    public function viewSchool($name){
         try{
-            $stmt = $this->conn->prepare("CALL selectStudent(:kt);");
-            $stmt->bindParam(":kt", $kt,PDO::PARAM_INT);
+            $stmt = $this->conn->prepare("CALL viewSchool(:name);");
+            $stmt->bindParam(":name", $name);
             $stmt->execute();
             $data = $stmt->fetch(PDO::FETCH_OBJ); //User data
             return $data;
@@ -71,19 +66,15 @@ class nemandi
     }
 
     /**
-     * @param $kt
+     * @param $id
      * @param $name
-     * @param $track
-     * @param $semester
      * @return PDOStatement
      */
-    public function changeStudent($kt,$name,$track,$semester){
+    public function changeSchool($id,$name){
         try{
-            $stmt = $this->conn->prepare("CALL changeStudent(:kt, :name, :track, :semester);");
-            $stmt->bindParam(":kt", $kt);
+            $stmt = $this->conn->prepare("CALL changeSchool(:id, :name);");
+            $stmt->bindParam(":id", $id);
             $stmt->bindParam(":name", $name);
-            $stmt->bindParam(":track", $track);
-            $stmt->bindParam(":semester", $semester);
             $stmt->execute();
             return $stmt;
         }catch (PDOException $e){
@@ -92,13 +83,13 @@ class nemandi
     }
 
     /**
-     * @param $kt
+     * @param $id
      * @return PDOStatement
      */
-    public function deleteStudent($kt){
+    public function deleteSchool($id){
         try{
-            $stmt = $this->conn->prepare("CALL deleteStudent(:kt);");
-            $stmt->bindParam(":kt", $kt);
+            $stmt = $this->conn->prepare("CALL deleteSchool(:id);");
+            $stmt->bindParam(":id", $id);
             $stmt->execute();
             return $stmt;
         }
@@ -106,4 +97,5 @@ class nemandi
             echo $e->getMessage();
         }
     }
+
 }
