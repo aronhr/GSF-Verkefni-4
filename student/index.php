@@ -59,8 +59,9 @@ if (!empty($_POST['ViewStudent'])) {
         }
     }
 }
-$changeKt = "";
 
+
+$changeKt = "";
 $changeName = "";
 $changeTrack = "";
 $changeSemester = "";

@@ -26,6 +26,26 @@ if (!empty($_POST['addSchool'])) {
     }
 }
 
+########################  View SCHOOL ########################
+if (!empty($_POST['ViewSchoolName'])) {
+    $name = trim(strip_tags($_POST['ViewSchoolName']));
+    if ($name == "") {
+        $error = "Provide Name!";
+    }
+    else {
+        try {
+            if($schoolDetails=$skoli->viewSchool($name)){
+                echo "Id:" . $schoolDetails->schoolID;
+                echo "\r\nName:" . $schoolDetails->schoolName;
+            }else{
+                echo "No school with this name";
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}
+
 
 ?>
 
@@ -40,5 +60,14 @@ if (!empty($_POST['addSchool'])) {
     <input type="text" name="addSchoolName" autocomplete="off" placeholder="Nafn á Skóla"/>
     <input type="submit" class="button" name="addSchool" value="Add New School">
 </form>
+
+<h1>View School</h1>
+<form method="post" action="" name="ViewSchoolForm">
+    <label>View School</label>
+    <input type="text" name="ViewSchoolName" autocomplete="off" placeholder="Nafn á Skóla"/>
+    <input type="submit" class="button" name="ViewSchool" value="View School">
+</form>
+
+
 </body>
 </html>

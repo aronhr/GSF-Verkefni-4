@@ -48,4 +48,18 @@ class skoli
         }
     }
 
+
+    public function viewSchool($name){
+        try{
+            $stmt = $this->conn->prepare("CALL viewSchool(:name);");
+            $stmt->bindParam(":name", $name);
+            $stmt->execute();
+            $data = $stmt->fetch(PDO::FETCH_OBJ); //User data
+            return $data;
+        }
+        catch (PDOException $e){
+            echo $e->getMessage();
+        }
+    }
+
 }

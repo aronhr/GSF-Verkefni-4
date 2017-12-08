@@ -77,4 +77,20 @@ CREATE PROCEDURE `newSchool`(IN `s_schoolName` VARCHAR(255))
     INSERT INTO Verkefni_4.schools (schoolName) VALUES (s_schoolName);
   END $$
 
+DELIMITER ;
+
 CALL newSchool('Menntaskólinn í Reykjavík');
+
+
+use Verkefni_4;
+
+DELIMITER $$
+
+CREATE PROCEDURE `viewSchool`(IN `s_name` VARCHAR(255))
+  BEGIN
+    SELECT * FROM `schools` WHERE schoolName = s_name;
+  END $$
+
+DELIMITER ;
+
+CALL viewSchool('Menntaskólinn í Reykjavík');
