@@ -72,7 +72,7 @@ class nemandi
 
     public function changeStudent($kt,$name,$track,$semester){
         try{
-            $stmt = $this->conn->prepare("CALL changeStudent(:kt, :name, :track, :semster);");
+            $stmt = $this->conn->prepare("CALL changeStudent(:kt, :name, :track, :semester);");
             $stmt->bindParam(":kt", $kt);
             $stmt->bindParam(":name", $name);
             $stmt->bindParam(":track", $track);
