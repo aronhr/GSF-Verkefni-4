@@ -65,6 +65,27 @@ class skoli
         }
     }
 
+    /**
+     * @param $id
+     * @param $name
+     * @return PDOStatement
+     */
+    public function changeSchool($id,$name){
+        try{
+            $stmt = $this->conn->prepare("CALL changeSchool(:id, :name);");
+            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":name", $name);
+            $stmt->execute();
+            return $stmt;
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param $id
+     * @return PDOStatement
+     */
     public function deleteSchool($id){
         try{
             $stmt = $this->conn->prepare("CALL deleteSchool(:id);");

@@ -81,6 +81,7 @@ DELIMITER ;
 
 CALL newSchool('Menntaskólinn í Reykjavík');
 
+#Veiw School
 
 use Verkefni_4;
 
@@ -95,6 +96,22 @@ DELIMITER ;
 
 CALL viewSchool('Menntaskólinn í Reykjavík');
 
+# ChangeSchool
+
+use Verkefni_4;
+
+DELIMITER $$
+
+CREATE PROCEDURE `changeSchool`(IN `s_id` INT, IN `s_name` VARCHAR(255))
+  BEGIN
+    UPDATE `Verkefni_4`.`schools` SET `schoolName` = s_name WHERE `schools`.`schoolID` = s_id;
+  END $$
+
+DELIMITER ;
+
+CALL changeSchool(5, 'Skólinn');
+
+#delete School
 
 use Verkefni_4;
 
@@ -107,5 +124,8 @@ CREATE PROCEDURE `deleteSchool`(IN `s_schoolID` INT)
 DELIMITER ;
 
 CALL deleteSchool(3)
+
+
+
 
 
