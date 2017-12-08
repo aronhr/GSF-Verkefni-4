@@ -94,3 +94,18 @@ CREATE PROCEDURE `viewSchool`(IN `s_name` VARCHAR(255))
 DELIMITER ;
 
 CALL viewSchool('Menntaskólinn í Reykjavík');
+
+
+use Verkefni_4;
+
+DELIMITER $$
+CREATE PROCEDURE `deleteSchool`(IN `s_schoolID` INT)
+  BEGIN
+    DELETE FROM `Verkefni_4`.`schools` WHERE `schools`.`schoolID` = s_schoolID;
+  END $$
+
+DELIMITER ;
+
+CALL deleteSchool(3)
+
+

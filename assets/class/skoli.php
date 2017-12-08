@@ -48,7 +48,10 @@ class skoli
         }
     }
 
-
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function viewSchool($name){
         try{
             $stmt = $this->conn->prepare("CALL viewSchool(:name);");
@@ -56,6 +59,18 @@ class skoli
             $stmt->execute();
             $data = $stmt->fetch(PDO::FETCH_OBJ); //User data
             return $data;
+        }
+        catch (PDOException $e){
+            echo $e->getMessage();
+        }
+    }
+
+    public function deleteSchool($id){
+        try{
+            $stmt = $this->conn->prepare("CALL deleteSchool(:id);");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            return $stmt;
         }
         catch (PDOException $e){
             echo $e->getMessage();

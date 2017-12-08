@@ -10,6 +10,8 @@ include '../assets/config.php';
 include '../assets/class/skoli.php';
 
 $skoli = new skoli();
+$error = "";
+session_start();
 
 ########################  ADD NEW SCHOOL ########################
 if (!empty($_POST['addSchool'])) {
@@ -47,6 +49,27 @@ if (!empty($_POST['ViewSchoolName'])) {
 }
 
 
+
+########################  DELETE SCHOOL ########################
+if (!empty($_POST['deleteSchoolId'])) {
+    $id = trim(strip_tags($_POST['deleteSchoolId']));
+    if ($id == "") {
+        $error = "Provide Id!";
+    }
+    else {
+        try {
+            $skoli->deleteSchool($id);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}
+
+if ($error != ""){
+    echo $error;
+}
+
+
 ?>
 
 <html>
@@ -69,5 +92,13 @@ if (!empty($_POST['ViewSchoolName'])) {
 </form>
 
 
+
+
+<h1>Delete School</h1>
+<form method="post" action="" name="deleteSchoolForm">
+    <label>Delete School</label>
+    <input type="number" name="deleteSchoolId" autocomplete="off" placeholder="School Id"/>
+    <input type="submit" class="button" name="deleteSchool" value="Delete School">
+</form>
 </body>
 </html>
