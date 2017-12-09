@@ -123,7 +123,65 @@ CREATE PROCEDURE `deleteSchool`(IN `s_schoolID` INT)
 
 DELIMITER ;
 
-CALL deleteSchool(3)
+CALL deleteSchool(3);
+
+# new course
+
+USE Verkefni_4;
+
+DELIMITER $$
+
+CREATE PROCEDURE `newCourse`(IN `s_courseNumber` VARCHAR(25), IN `s_courseName` VARCHAR(255), IN `s_courseCredits` INT)
+BEGIN
+  INSERT INTO `Verkefni_4`.`courses` (`courseNumber`, `courseName`, `courseCredits`) VALUES (s_courseNumber, s_courseName, s_courseCredits);
+END $$
+
+DELIMITER ;
+
+# SelectCourse
+
+use Verkefni_4;
+
+DELIMITER $$
+
+CREATE PROCEDURE `selectCourse`(IN `s_courseNumber` VARCHAR(25))
+BEGIN
+  SELECT * FROM `courses`WHERE courseNumber = s_courseNumber;
+END $$
+
+DELIMITER ;
+
+
+#Update course
+
+use Verkefni_4;
+
+DELIMITER $$
+
+CREATE PROCEDURE `changeCourse`(IN `s_courseNumber` VARCHAR(25), IN `s_courseName` VARCHAR(255), IN `s_courseCredits` INT)
+  BEGIN
+    UPDATE `Verkefni_4`.`courses` SET `courseNumber` = s_courseNumber, `courseName` = s_courseName, `courseCredits` = s_courseCredits WHERE `courses`.`courseNumber` = s_courseNumber;
+  END $$
+
+DELIMITER ;
+
+
+#Delete Course
+
+use Verkefni_4;
+
+DELIMITER $$
+
+CREATE PROCEDURE `deleteCourse`(IN `s_courseNumber` VARCHAR(25))
+  BEGIN
+    DELETE FROM `Verkefni_4`.`courses` WHERE `courses`.`courseNumber` = s_courseNumber;
+  END $$
+
+DELIMITER ;
+
+
+
+
 
 
 
