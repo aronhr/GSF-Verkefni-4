@@ -12,5 +12,6 @@
 <body>
     <a href="/student">Student</a>
     <a href="/school">School</a>
+    <a href="/course">Course</a>
 </body>
 </html>
